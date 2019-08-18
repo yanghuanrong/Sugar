@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-
+import { Button } from 'antd';
 
 function mapSateProps(state){
   return {isLogin: state.isLogin}
@@ -12,7 +12,7 @@ const mapDispatchProps = {
 }
 
 @connect(mapSateProps, mapDispatchProps)
-class Login extends React.Component{
+class LoginPage extends React.Component{
   render(){
     const {isLogin, login, location} = this.props
     
@@ -23,10 +23,11 @@ class Login extends React.Component{
       return <Redirect to={redirect}/>
     } else {
       return <div>
-        <button onClick={login}>登录</button>
+        <Button type="danger">Dashed</Button>
+        <Button onClick={login}>登录</Button>
       </div>
     }
   }
 }
 
-export default Login
+export default LoginPage

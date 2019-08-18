@@ -2,17 +2,17 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {Route, Redirect} from 'react-router-dom'
 
-import Home from '@/view/home'
-import About from '@/view/about'
+import HomePage from '@/view/home'
+import AboutPage from '@/view/about'
 
 const RouteSate = [
   {
     exact: true,
     path: '/',
-    component: Home
+    component: HomePage
   },{
     path: '/about',
-    component: About
+    component: AboutPage
   }
 ]
 
