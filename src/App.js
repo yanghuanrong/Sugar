@@ -18,16 +18,19 @@ const mapDispatchProps = {
   }
 }
 
-const Login = connect(mapSateProps, mapDispatchProps)((parps) => {
-  const {isLogin, login, location} = parps
-  if(isLogin){
-    return <Redirect to={location.state.redirect}/>
-  } else {
-    return <div>
-      <button onClick={login}>登录</button>
-    </div>
+@connect(mapSateProps, mapDispatchProps)
+class Login extends React.Component{
+  render(){
+    const {isLogin, login, location} = this.props
+    if(isLogin){
+      return <Redirect to={location.state.redirect}/>
+    } else {
+      return <div>
+        <button onClick={login}>登录</button>
+      </div>
+    }
   }
-})
+}
 
 
 function News(){
@@ -41,21 +44,27 @@ function NoMatch(parps){
 /**
  * 路由守望
  */
-const PrivateRoute = connect(mapSateProps, mapDispatchProps)(({component: Comp, isLogin, ...rest}) => {
-  const redirect = parps => {
-    if (isLogin) {
-      return <Comp/>
-    } else {
-      return <Redirect to={{
-        pathname: '/login',
-        state: {
-          redirect: parps.location.pathname
-        }
-      }} />
+
+@connect(mapSateProps, mapDispatchProps)
+class PrivateRoute extends React.Component{
+  render(){
+    const {component: Comp, isLogin, ...rest} = this.props
+    const redirect = parps => {
+      if (isLogin) {
+        return <Comp/>
+      } else {
+        return <Redirect to={{
+          pathname: '/login',
+          state: {
+            redirect: parps.location.pathname
+          }
+        }} />
+      }
     }
+    return <Route {...rest} render={redirect}></Route> 
   }
-  return <Route {...rest} render={redirect}></Route>
-})
+}
+
 
 function App() {
   return (
