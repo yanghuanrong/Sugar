@@ -1,20 +1,12 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import thunk from 'redux-thunk'
+import {userReduce} from './userReduce'
 
-const defaultState = {
-  isLogin: false
-}
-
-const reduce = (state = defaultState, action) => {
-  switch (action.type) {
-    case 'login':
-      const newState = JSON.parse(JSON.stringify(state))
-      newState.isLogin = true
-      return newState
-    default:
-      return state
-  }
-}
-
-const store = createStore(reduce)
+const store = createStore(
+  combineReducers({
+    user: userReduce
+  }), 
+  applyMiddleware(thunk)
+)
 
 export default store

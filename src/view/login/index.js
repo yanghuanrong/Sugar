@@ -2,23 +2,21 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import { Button, Input, Icon, Form } from 'antd';
+import {login} from '@/store/userReduce'
 
 function mapSateProps(state){
-  return {isLogin: state.isLogin}
-}
-
-const mapDispatchProps = {
-  login: (param) => ({type: 'login', value: param})
+  return {isLogin: state.user.isLogin}
 }
 
 @Form.create({ name: 'normal_login' })
-@connect(mapSateProps, mapDispatchProps)
+@connect(mapSateProps, {login})
 class LoginPage extends React.Component{
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        // console.log(this.props)
         this.props.login(values)
       }
     })

@@ -17,7 +17,7 @@ const RouteSate = [
 ]
 
 function mapSateProps(state){
-  return {isLogin: state.isLogin}
+  return {isLogin: state.user.isLogin}
 }
 /**
  * 路由守望
