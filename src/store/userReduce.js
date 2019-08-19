@@ -20,4 +20,4 @@ export const login = (param) => dispatch => {
   }, 2000);
 }
 
- 
+export const userStore = (state) => ({isLogin: state.user.isLogin})

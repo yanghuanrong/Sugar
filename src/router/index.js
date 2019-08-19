@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Route, Redirect} from 'react-router-dom'
+import {userStore} from '@/store/userReduce'
 
 import HomePage from '@/view/home'
 import AboutPage from '@/view/about'
@@ -16,13 +17,10 @@ const RouteSate = [
   }
 ]
 
-function mapSateProps(state){
-  return {isLogin: state.user.isLogin}
-}
 /**
  * 路由守望
  */
-@connect(mapSateProps)
+@connect(userStore)
 class PrivateRoute extends React.Component{
   render(){
     const {component: Comp, isLogin, ...rest} = this.props
