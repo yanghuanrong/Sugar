@@ -29,9 +29,6 @@ class EditProject extends React.Component{
       <div className="editor-ctrl__left"></div>
       <div className="editor-ctrl__info">
         <div className="title">我的第一个项目</div>
-        <div className="zoom">
-          
-        </div>
       </div>
       <div className="editor-ctrl__body">
         <div style={{
@@ -40,7 +37,11 @@ class EditProject extends React.Component{
           <div className="dashboard-container" style={{
             width: 500,
             height: 500
-          }}></div>
+          }}>
+            {
+              this.state.compList.map((Comp, i) => <Comp key={i}/>)
+            }
+          </div>
         </div>
       </div>
       <div className="editor-ctrl__right"></div>
