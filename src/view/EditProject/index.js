@@ -1,6 +1,7 @@
 import React from 'react';
 import Toolbar from './toolbar'
 import charts from '@/component/chart'
+import { Slider } from 'antd';
 
 class EditProject extends React.Component{
   state = {
@@ -16,7 +17,7 @@ class EditProject extends React.Component{
     if(isComp){
       const compList = [...this.state.compList]
       compList.push(charts[type])
-      this.setSate({
+      this.setState({
         compList: compList
       })
     }
@@ -26,7 +27,12 @@ class EditProject extends React.Component{
     return <div className="editor-container">
       <Toolbar operation={this.TopBarOperation}/>
       <div className="editor-ctrl__left"></div>
-      <div className="editor-ctrl__info"></div>
+      <div className="editor-ctrl__info">
+        <div className="title">我的第一个项目</div>
+        <div className="zoom">
+          
+        </div>
+      </div>
       <div className="editor-ctrl__body">
         <div style={{
           position: 'relative'
@@ -38,6 +44,16 @@ class EditProject extends React.Component{
         </div>
       </div>
       <div className="editor-ctrl__right"></div>
+      <div className="editor-ctrl__bottom">
+        <div className="zoom-tips">面板缩放百分比</div>
+        <div className="zoom-slider">
+          <Slider marks={{
+            10: '10',
+            105: '105',
+            200: '200',
+          }} min={10} max={200} defaultValue={100} />
+        </div>
+      </div>
     </div>
   }
 }
