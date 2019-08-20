@@ -3,17 +3,17 @@ import {connect} from 'react-redux'
 import {Route, Redirect} from 'react-router-dom'
 import {userStore} from '@/store/userReduce'
 
-import HomePage from '@/view/home'
-import AboutPage from '@/view/about'
+import Layout from '@/view/Layout'
+import EditProject from '@/view/EditProject'
 
 const RouteSate = [
   {
     exact: true,
     path: '/',
-    component: HomePage
+    component: Layout
   },{
-    path: '/about',
-    component: AboutPage
+    path: '/editproject',
+    component: EditProject
   }
 ]
 
