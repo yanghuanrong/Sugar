@@ -3,20 +3,53 @@ import Toolbar from './toolbar'
 import charts from '@/component/chart'
 import { Slider } from 'antd';
 
+/**
+ * 创建组件
+ * @param {*} type
+ * @param {*} compList
+ * @returns
+ */
+function createdComp({type, name}, compList) {
+
+  let iNow = 0
+  const compListLen = compList.length
+  compListLen && compList.forEach((item) => {
+    if(item.type === type){
+      iNow ++
+    }
+  })
+
+  const spacing = 20
+  let x = spacing
+  let y = spacing
+  let w = null
+  let h = null
+  let isEdit = true
+  if (iNow) {
+    name+=iNow
+  }
+
+  if(compListLen){
+    y = x = spacing * (compListLen + 1)
+  }
+  return {x,y,w,h,name,type,isEdit}
+}
+
+
 class EditProject extends React.Component{
   state = {
     compList: []
   }
   /**
-   * @param string 
    * 顶部区域的操作返回的具体操作
-   * type 具体的类型
-   * isComp 有此参数代表是添加组件
+   * @param {string} type 操作类型;
+   * @param {boolean} isComp 是否为组件;
    */
   TopBarOperation = (type, isComp) => {
     if(isComp){
       const compList = [...this.state.compList]
-      compList.push(charts[type])
+      compList.map((item) => (item.isEdit = false))
+      compList.push(createdComp(type, compList))
       this.setState({
         compList: compList
       })
@@ -39,7 +72,10 @@ class EditProject extends React.Component{
             height: 500
           }}>
             {
-              this.state.compList.map((Comp, i) => <Comp key={i}/>)
+              this.state.compList.map(({type, ...rest}, i) => {
+                const Comp = charts[type]
+                return <Comp {...rest} key={i} />
+              })
             }
           </div>
         </div>

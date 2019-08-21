@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Icon} from 'antd'
-
-console.log(React)
 
 const componentList = [
   {
@@ -20,8 +18,8 @@ const componentList = [
     type: 'shop',
     name: '素材',
     child: [{
-      type: 'Border',
-      name: '边框'
+      type: 'Rect',
+      name: '矩形'
     }, {
       type: 'MinIcon',
       name: '小图标'
@@ -54,7 +52,7 @@ function ActionGroup({operation}) {
           <div className="list-container">
             <ul>
               {
-              item.child.map((items, k) => (<li key={k} onClick={() => operation(items.type, true)}>
+              item.child.map((items, k) => (<li key={k} onClick={() => operation(items, true)}>
                   <div className="tool-item">
                     <div className="tool-item__icon"></div>
                     <span className="tool-item__name">{items.name}</span>
