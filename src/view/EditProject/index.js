@@ -56,6 +56,15 @@ class EditProject extends React.Component{
     }
   }
 
+  move(x,y,i){
+    const compList = [...this.state.compList]
+    compList[i].x = x
+    compList[i].y = y
+    this.setState({
+      compList: compList
+    })
+  }
+
   render(){
     return <div className="editor-container">
       <Toolbar operation={this.TopBarOperation}/>
@@ -74,7 +83,7 @@ class EditProject extends React.Component{
             {
               this.state.compList.map(({type, ...rest}, i) => {
                 const Comp = charts[type]
-                return <Comp {...rest} key={i} />
+                return <Comp {...rest} key={i} index={i} move={({x,y},i) => this.move(x,y,i)} />
               })
             }
           </div>
