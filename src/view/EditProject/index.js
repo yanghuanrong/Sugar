@@ -54,12 +54,14 @@ class EditProject extends React.Component{
     }
   }
 
+  // 清除所有组件选中状态
   clearSlect(){
     const compList = [...this.state.compList]
     compList.map((item) => (item.isEdit = false))
     return compList
   }
 
+  // 组件移动
   move(x,y,i){
     const compList = [...this.state.compList]
     compList[i].x = x
@@ -69,6 +71,17 @@ class EditProject extends React.Component{
     })
   }
 
+  // 修改组件尺寸
+  resize(w, h,i){
+    const compList = [...this.state.compList]
+    compList[i].w = w
+    compList[i].h = h
+    this.setState({
+      compList: compList
+    })
+  }
+
+  // 选中组件
   tap(i){
     const compList = this.clearSlect()
     compList[i].isEdit = true
@@ -100,7 +113,8 @@ class EditProject extends React.Component{
                   key={i} 
                   index={i} 
                   select={() => this.tap(i)}
-                  move={(x,y,i) => this.move(x,y,i)}
+                  move={(x, y, i) => this.move(x, y , i)}
+                  resize={(w, h, i) => this.resize(w, h, i)}
                 >
                   <Comp w={w} h={h} />
               </Drag>

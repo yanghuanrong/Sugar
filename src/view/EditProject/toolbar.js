@@ -19,12 +19,14 @@ const componentList = [
     name: '素材',
     child: [{
       type: 'Rect',
+      name: '矩形',
       w: 200,
       h: 200,
-      name: '矩形'
     }, {
       type: 'MinIcon',
-      name: '小图标'
+      name: '小图标',
+      w: 100,
+      h: 100,
     }]
   },
 ]
