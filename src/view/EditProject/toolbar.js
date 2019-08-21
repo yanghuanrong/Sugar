@@ -19,6 +19,8 @@ const componentList = [
     name: '素材',
     child: [{
       type: 'Rect',
+      w: 200,
+      h: 200,
       name: '矩形'
     }, {
       type: 'MinIcon',

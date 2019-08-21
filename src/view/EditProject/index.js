@@ -1,6 +1,7 @@
 import React from 'react';
 import Toolbar from './toolbar'
 import charts from '@/component/chart'
+import Drag from '@/component/drag'
 import { Slider } from 'antd';
 
 /**
@@ -9,7 +10,7 @@ import { Slider } from 'antd';
  * @param {*} compList
  * @returns
  */
-function createdComp({type, name}, compList) {
+function createdComp({type, name, w, h}, compList) {
 
   let iNow = 0
   const compListLen = compList.length
@@ -22,8 +23,6 @@ function createdComp({type, name}, compList) {
   const spacing = 20
   let x = spacing
   let y = spacing
-  let w = null
-  let h = null
   let isEdit = true
   if (iNow) {
     name+=iNow
@@ -47,8 +46,7 @@ class EditProject extends React.Component{
    */
   TopBarOperation = (type, isComp) => {
     if(isComp){
-      const compList = [...this.state.compList]
-      compList.map((item) => (item.isEdit = false))
+      const compList = this.clearSlect()
       compList.push(createdComp(type, compList))
       this.setState({
         compList: compList
@@ -56,10 +54,24 @@ class EditProject extends React.Component{
     }
   }
 
+  clearSlect(){
+    const compList = [...this.state.compList]
+    compList.map((item) => (item.isEdit = false))
+    return compList
+  }
+
   move(x,y,i){
     const compList = [...this.state.compList]
     compList[i].x = x
     compList[i].y = y
+    this.setState({
+      compList: compList
+    })
+  }
+
+  tap(i){
+    const compList = this.clearSlect()
+    compList[i].isEdit = true
     this.setState({
       compList: compList
     })
@@ -83,7 +95,15 @@ class EditProject extends React.Component{
             {
               this.state.compList.map(({type, ...rest}, i) => {
                 const Comp = charts[type]
-                return <Comp {...rest} key={i} index={i} move={({x,y},i) => this.move(x,y,i)} />
+                const {w, h} = {...rest}
+                return <Drag {...rest}  
+                  key={i} 
+                  index={i} 
+                  select={() => this.tap(i)}
+                  move={(x,y,i) => this.move(x,y,i)}
+                >
+                  <Comp w={w} h={h} />
+              </Drag>
               })
             }
           </div>

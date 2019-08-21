@@ -11,7 +11,7 @@
     bottom: 0;
     z-index: 2;
 
-    &:hover{
+    &.hover{
       background-color: fade(@mainColor, 30%);
       border: 1px solid @mainColor;
     }
@@ -20,12 +20,12 @@
       background-color: fade(@mainColor, 30%);
       border: 1px solid @mainColor;
       
-      .grid-line{
+      .grid-line, .resize-handle-wrapper{
         display: block;
       }
     }
 
-    .tap-move{
+    .move-tap{
       position: absolute;
       top: 0;
       left: 0;
@@ -33,6 +33,50 @@
       bottom: 0;
       cursor: move;
     }
+
+    .resize-handle-wrapper{
+      display: none;
+
+      span{
+        position: absolute;
+        box-sizing: border-box;
+        border: 3px solid @mainColor;
+        width: 8px;
+        height: 8px;
+        display: block;
+
+        &.move-width{
+          top: 50%;
+          right: -4px;
+          transform: translateY(-50%);
+          cursor: ew-resize;
+          border-left: 0;
+          border-top: 0;
+          border-bottom: 0;
+        }
+    
+        &.move-height{
+          bottom: -4px;
+          left: 50%;
+          transform: translateX(-50%);
+          cursor: ns-resize;
+          border-left: 0;
+          border-right: 0;
+          border-top: 0;
+        }
+    
+        &.move-resize{
+          bottom: -8px;
+          right: -4px;
+          transform: translateY(-50%);
+          cursor: nwse-resize;
+          border-left: 0;
+          border-top: 0;
+        }
+
+      }
+    }
+    
 
     .grid-line{
       display: none;
