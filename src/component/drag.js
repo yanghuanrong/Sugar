@@ -9,10 +9,8 @@ export default class Drag extends React.Component{
     const touchY = e.pageY - this.props.y
 
     document.onmousemove = (ev) => {
-      const moveX = ev.pageX - touchX
-      const moveY = ev.pageY - touchY
-      const x = moveX
-      const y = moveY
+      const x = ev.pageX - touchX
+      const y = ev.pageY - touchY
       this.props.move(x, y, this.props.index)
     }
 

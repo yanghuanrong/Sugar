@@ -1,9 +1,12 @@
 .chart-component{
   position: absolute;
 
+  .chart-component{
+    pointer-events: none;
+  }
+
   .drag{
     @mainColor: #F00;
-
     position: absolute;
     top: 0;
     left: 0;
@@ -15,6 +18,7 @@
       background-color: fade(@mainColor, 10%);
       border: 1px solid @mainColor;
     }
+
 
     &.isEdit{
       background-color: fade(@mainColor, 10%);

@@ -37,6 +37,11 @@ function createdComp({type, name, w, h}, compList) {
 
 class EditProject extends React.Component{
   state = {
+    stage: {
+      w: 800,
+      h: 600,
+      scale: 1
+    },
     compList: []
   }
   /**
@@ -52,6 +57,16 @@ class EditProject extends React.Component{
         compList: compList
       })
     }
+  }
+
+  //
+  zoom = (data) => {
+    console.log(data)
+    const stage = Object.assign({}, this.state.stage)
+    stage.scale = data / 100
+    this.setState({
+      stage: stage
+    })
   }
 
   // 清除所有组件选中状态
@@ -102,9 +117,11 @@ class EditProject extends React.Component{
           position: 'relative'
         }}>
           <div className="dashboard-container" style={{
-            width: 500,
-            height: 500
+            width: this.state.stage.w,
+            height: this.state.stage.h,
+            transform: `scale(${this.state.stage.scale})`
           }}>
+            <div class="dashboard-grid-overlay"></div>
             {
               this.state.compList.map(({type, ...rest}, i) => {
                 const Comp = charts[type]
@@ -131,7 +148,7 @@ class EditProject extends React.Component{
             10: '10',
             105: '105',
             200: '200',
-          }} min={10} max={200} defaultValue={100} />
+          }} min={10} max={200} tooltipVisible={true} defaultValue={100} onChange={(value) => this.zoom(value)} />
         </div>
       </div>
     </div>
