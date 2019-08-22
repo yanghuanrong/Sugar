@@ -21,63 +21,29 @@ export default class Drag extends React.Component{
     }
   }
 
-  // 修改组件宽度
-  resizeW = (e) => {
+  // 修改组件尺寸
+  resize = (e, type) => {
     e.persist()
-    // 这个20是由于编辑模式下两边多出的像素
-    const MARGIN = 20
-
-    const touchX = e.pageX - this.props.x
+    const touchX = e.pageX 
+    const touchY = e.pageY
     const initW = this.props.w
     const initH = this.props.h
+    let w = initW
+    let h = initH
 
     document.onmousemove = (ev) => {
       const moveX = ev.pageX - touchX
-      const w = moveX + initW - MARGIN
-      this.props.resize(w, initH, this.props.index)
-    }
-
-    document.onmouseup= () => {
-      document.onmousemove = null
-    }
-  }
-
-  // 修改组件高度
-  resizeH = (e) => {
-    e.persist()
-    // 这个20是由于编辑模式下两边多出的像素
-    const MARGIN = 20
-
-    const touchY = e.pageY - this.props.y
-    const initW = this.props.w
-    const initH = this.props.h
-
-    document.onmousemove = (ev) => {
       const moveY = ev.pageY - touchY
-      const h = moveY + initH - MARGIN
-      this.props.resize(initW, h, this.props.index)
-    }
 
-    document.onmouseup= () => {
-      document.onmousemove = null
-    }
-  }
-
-  // 修改组件高度
-  resizeAll = (e) => {
-    e.persist()
-    // 这个20是由于编辑模式下两边多出的像素
-    const MARGIN = 20
-
-    const touchX = e.pageX - this.props.x
-    const initW = this.props.w
-    const initH = this.props.h
-
-    document.onmousemove = (ev) => {
-      const moveX = ev.pageX - touchX
-      const w = moveX + initW - MARGIN
-      const rate = w / initW
-      const h = initH * rate
+      if(type === 'w'){
+        w = moveX + initW
+      } else if(type === 'h'){
+        h = moveY + initH
+      } else {
+        w = moveX + initW
+        let rate = w / initW
+        h = initH * rate
+      }
       this.props.resize(w, h, this.props.index)
     }
 
@@ -106,9 +72,18 @@ export default class Drag extends React.Component{
           <div className="grid-line-label">{x}, {y}</div>
         </div>
         <div className="resize-handle-wrapper">
-          <span className="move-width" onMouseDown={this.resizeW}></span>
-          <span className="move-height" onMouseDown={this.resizeH}></span>
-          <span className="move-resize" onMouseDown={this.resizeAll} ></span>
+          <span className="move-width" onMouseDown={(e) => {
+            e.persist()
+            this.resize(e, 'w')
+          }}></span>
+          <span className="move-height" onMouseDown={(e) => {
+            e.persist()
+            this.resize(e, 'h')
+          }}></span>
+          <span className="move-resize" onMouseDown={(e) => {
+            e.persist()
+            this.resize(e)
+          }} ></span>
         </div>
         <div className="move-tap" onMouseDown={this.move}></div>
       </div>
